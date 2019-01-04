@@ -43,7 +43,7 @@
             }
           },
           "401" : {
-            "description" : "Invalid user credentials",
+            "description" : "Invalid user credentials.",
             "schema" : {
               "$ref" : "#/definitions/ErrorResponse"
             }

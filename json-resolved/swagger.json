@@ -1,0 +1,265 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "No description",
+    "version" : "0.1.0",
+    "title" : "Untitled",
+    "contact" : { }
+  },
+  "host" : "virtserver.swaggerhub.com",
+  "basePath" : "/Ploints/api/0.1.0",
+  "schemes" : [ "https" ],
+  "consumes" : [ "application/json" ],
+  "produces" : [ "application/json" ],
+  "security" : [ {
+    "JWT" : [ ]
+  } ],
+  "paths" : {
+    "/token" : {
+      "post" : {
+        "summary" : "Authentication manager",
+        "description" : "Gets new token",
+        "parameters" : [ {
+          "name" : "username",
+          "in" : "query",
+          "required" : false,
+          "type" : "string",
+          "x-example" : "inigo"
+        }, {
+          "name" : "password",
+          "in" : "query",
+          "required" : false,
+          "type" : "string",
+          "x-example" : "contraseñafuerte"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200",
+            "examples" : {
+              "application/json" : "4E7A09E2-AD76-4CE3-A96B-5BC5493B11FD"
+            },
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          "401" : {
+            "description" : "Invalid user credentials",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          },
+          "403" : {
+            "description" : "Invalid client application credentials (Authorization header)",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "security" : [ {
+          "API key" : [ ]
+        } ]
+      },
+      "put" : {
+        "summary" : "Refresh token",
+        "parameters" : [ {
+          "name" : "usertoken",
+          "in" : "query",
+          "required" : false,
+          "type" : "string",
+          "x-example" : "4E7A09E2-AD76-4CE3-A96B-5BC5493B11FD"
+        }, {
+          "name" : "Authorization",
+          "in" : "header",
+          "required" : false,
+          "type" : "string",
+          "x-example" : "BASIC AC508B59-DB7F-4CFC-BAE5-A118E249D759"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200",
+            "examples" : {
+              "application/json" : "4E7A09E2-AD76-4CE3-A96B-5BC5493B11FD"
+            },
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          "401" : {
+            "description" : "Invalid token",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          },
+          "403" : {
+            "description" : "Invalid client application credentials (Authorization header)",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "security" : [ {
+          "API key" : [ ]
+        } ]
+      },
+      "delete" : {
+        "summary" : "Expire token",
+        "parameters" : [ {
+          "name" : "usertoken",
+          "in" : "query",
+          "required" : false,
+          "type" : "string",
+          "x-example" : "4E7A09E2-AD76-4CE3-A96B-5BC5493B11FD"
+        }, {
+          "name" : "Authorization",
+          "in" : "header",
+          "required" : false,
+          "type" : "string",
+          "x-example" : "BASIC AC508B59-DB7F-4CFC-BAE5-A118E249D759"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200"
+          },
+          "401" : {
+            "description" : "Invalid token",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          },
+          "403" : {
+            "description" : "Invalid client application credentials (Authorization header)",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "security" : [ {
+          "API key" : [ ]
+        } ]
+      }
+    },
+    "/users/profiles/{userid}" : {
+      "get" : {
+        "summary" : "Gets de user profile",
+        "parameters" : [ {
+          "name" : "userid",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200",
+            "schema" : {
+              "$ref" : "#/definitions/User"
+            }
+          },
+          "401" : {
+            "description" : "Invalid token",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          },
+          "403" : {
+            "description" : "Token and userid don't match",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "put" : {
+        "summary" : "Updates the user profile",
+        "parameters" : [ {
+          "name" : "userid",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200"
+          },
+          "401" : {
+            "description" : "Invalid token",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          },
+          "403" : {
+            "description" : "Token and userid don't match",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/users/profiles" : {
+      "post" : {
+        "summary" : "Creates new user profile",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200"
+          }
+        }
+      }
+    },
+    "/user/points/{userid}" : { },
+    "/catalog/vendors/items" : { },
+    "/catalog/vendors" : { },
+    "/programs" : { },
+    "/users/passwords/{userid}" : { }
+  },
+  "securityDefinitions" : {
+    "API key" : {
+      "type" : "apiKey",
+      "name" : "Authorization",
+      "in" : "header"
+    },
+    "JWT" : {
+      "type" : "apiKey",
+      "name" : "Authorization",
+      "in" : "header"
+    }
+  },
+  "definitions" : {
+    "ErrorResponse" : {
+      "type" : "object",
+      "properties" : {
+        "errorcode" : {
+          "type" : "number"
+        },
+        "errormessage" : {
+          "type" : "string"
+        }
+      },
+      "example" : "{\n    \"errorcode\":1\n    ,\"errormessage\":\"Invalid user token\"\n}"
+    },
+    "User" : {
+      "type" : "object",
+      "properties" : {
+        "name" : {
+          "type" : "string"
+        },
+        "lastname" : {
+          "type" : "string"
+        },
+        "mobile" : {
+          "type" : "string"
+        },
+        "email" : {
+          "type" : "string"
+        },
+        "gender" : {
+          "type" : "string"
+        },
+        "birthdate" : {
+          "type" : "string"
+        }
+      },
+      "example" : "{\r\n\"name\":\"Iñigo\"\r\n,\"lastname\":\"Mingo Toral\"\r\n,\"mobile\":\"666999666\"\r\n,\"email\":\"inigo@ploints.com\"\r\n,\"gender\":\"Masculino\"\r\n,\"birthdate\":\"1977-01-20T00:00:00.000Z\"\r\n}"
+    }
+  }
+}

@@ -35,15 +35,12 @@
         "responses" : {
           "200" : {
             "description" : "Status 200",
-            "examples" : {
-              "application/json" : "4E7A09E2-AD76-4CE3-A96B-5BC5493B11FD"
-            },
             "schema" : {
-              "type" : "string"
+              "$ref" : "#/definitions/UserToken"
             }
           },
           "401" : {
-            "description" : "Invalid user credentials.",
+            "description" : "Invalid user credentials",
             "schema" : {
               "$ref" : "#/definitions/ErrorResponse"
             }
@@ -64,9 +61,10 @@
         "parameters" : [ {
           "name" : "usertoken",
           "in" : "query",
+          "description" : "JSON Web Token (https://jwt.io/)\n\n{\n  \"alg\": \"HS256\",\n  \"typ\": \"JWT\"\n}\n\n{\n  \"sub\": \"1234567890\",\n  \"name\": \"Iñigo\",\n  \"exp\": \"2020-01-01T00:00:00.000Z\",\n  \"userid\":\"00000000-0000-0000-0000-000000000000\",\n  \"usertype\":\"user\",\n\t\"baseURL\":\"https://virtserver.swaggerhub.com/Ploints/api/0.1.0\"\n}\n\nHMACSHA256(\n  base64UrlEncode(header) + \".\" +\n  base64UrlEncode(payload),\n  \"AC508B59-DB7F-4CFC-BAE5-A118E249D759\"\n)\n\n",
           "required" : false,
           "type" : "string",
-          "x-example" : "4E7A09E2-AD76-4CE3-A96B-5BC5493B11FD"
+          "x-example" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IknDsWlnbyIsImV4cCI6IjIwMjAtMDEtMDFUMDA6MDA6MDAuMDAwWiIsInVzZXJpZCI6IjAwMDAwMDAwLTAwMDAtMDAwMC0wMDAwLTAwMDAwMDAwMDAwMCIsInVzZXJ0eXBlIjoidXNlciIsImJhc2VVUkwiOiJodHRwczovL3ZpcnRzZXJ2ZXIuc3dhZ2dlcmh1Yi5jb20vUGxvaW50cy9hcGkvMC4xLjAifQ.JJLzs_kp4qmoOb3HVF6f_Wn_AKjSNwXH8xUqWedpcjI"
         }, {
           "name" : "Authorization",
           "in" : "header",
@@ -77,11 +75,8 @@
         "responses" : {
           "200" : {
             "description" : "Status 200",
-            "examples" : {
-              "application/json" : "4E7A09E2-AD76-4CE3-A96B-5BC5493B11FD"
-            },
             "schema" : {
-              "type" : "string"
+              "$ref" : "#/definitions/UserToken"
             }
           },
           "401" : {
@@ -106,9 +101,10 @@
         "parameters" : [ {
           "name" : "usertoken",
           "in" : "query",
+          "description" : "JSON Web Token (https://jwt.io/)\n\n{\n  \"alg\": \"HS256\",\n  \"typ\": \"JWT\"\n}\n\n{\n  \"sub\": \"1234567890\",\n  \"name\": \"Iñigo\",\n  \"exp\": \"2020-01-01T00:00:00.000Z\",\n  \"userid\":\"00000000-0000-0000-0000-000000000000\",\n  \"usertype\":\"user\",\n\t\"baseURL\":\"https://virtserver.swaggerhub.com/Ploints/api/0.1.0\"\n}\n\nHMACSHA256(\n  base64UrlEncode(header) + \".\" +\n  base64UrlEncode(payload),\n  \"AC508B59-DB7F-4CFC-BAE5-A118E249D759\"\n)\n\n",
           "required" : false,
           "type" : "string",
-          "x-example" : "4E7A09E2-AD76-4CE3-A96B-5BC5493B11FD"
+          "x-example" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IknDsWlnbyIsImV4cCI6IjIwMjAtMDEtMDFUMDA6MDA6MDAuMDAwWiIsInVzZXJpZCI6IjAwMDAwMDAwLTAwMDAtMDAwMC0wMDAwLTAwMDAwMDAwMDAwMCIsInVzZXJ0eXBlIjoidXNlciIsImJhc2VVUkwiOiJodHRwczovL3ZpcnRzZXJ2ZXIuc3dhZ2dlcmh1Yi5jb20vUGxvaW50cy9hcGkvMC4xLjAifQ.JJLzs_kp4qmoOb3HVF6f_Wn_AKjSNwXH8xUqWedpcjI"
         }, {
           "name" : "Authorization",
           "in" : "header",
@@ -170,11 +166,19 @@
       },
       "put" : {
         "summary" : "Updates the user profile",
+        "consumes" : [ ],
         "parameters" : [ {
           "name" : "userid",
           "in" : "path",
           "required" : true,
           "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/User"
+          }
         } ],
         "responses" : {
           "200" : {
@@ -198,12 +202,38 @@
     "/users/profiles" : {
       "post" : {
         "summary" : "Creates new user profile",
-        "parameters" : [ ],
-        "responses" : {
-          "200" : {
-            "description" : "Status 200"
+        "consumes" : [ ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/User"
           }
-        }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "Status 201",
+            "examples" : {
+              "application/json" : "00000000-0000-0000-0000-000000000000"
+            },
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          "401" : {
+            "description" : "Invalid token",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          },
+          "403" : {
+            "description" : "Status 403"
+          }
+        },
+        "security" : [ {
+          "API key" : [ ]
+        } ]
       }
     },
     "/user/points/{userid}" : { },
@@ -240,6 +270,9 @@
     "User" : {
       "type" : "object",
       "properties" : {
+        "userid" : {
+          "type" : "string"
+        },
         "name" : {
           "type" : "string"
         },
@@ -257,9 +290,17 @@
         },
         "birthdate" : {
           "type" : "string"
+        },
+        "newpassword" : {
+          "type" : "string"
         }
       },
-      "example" : "{\r\n\"name\":\"Iñigo\"\r\n,\"lastname\":\"Mingo Toral\"\r\n,\"mobile\":\"666999666\"\r\n,\"email\":\"inigo@ploints.com\"\r\n,\"gender\":\"Masculino\"\r\n,\"birthdate\":\"1977-01-20T00:00:00.000Z\"\r\n}"
+      "example" : "{\n\"userid\":\"00000000-0000-0000-0000-000000000000\"\n,\"name\":\"Iñigo\"\n,\"lastname\":\"Mingo Toral\"\n,\"mobile\":\"666999666\"\n,\"email\":\"inigo@ploints.com\"\n,\"gender\":\"Masculino\"\n,\"birthdate\":\"1977-01-20T00:00:00.000Z\"\n,\"newpassword\":\"xyz\"\n}"
+    },
+    "UserToken" : {
+      "type" : "string",
+      "description" : "JSON Web Token (https://jwt.io/)\n\n{\n  \"alg\": \"HS256\",\n  \"typ\": \"JWT\"\n}\n\n{\n  \"sub\": \"1234567890\",\n  \"name\": \"Iñigo\",\n  \"exp\": \"2020-01-01T00:00:00.000Z\",\n  \"userid\":\"00000000-0000-0000-0000-000000000000\",\n  \"usertype\":\"user\",\n\t\"baseURL\":\"https://virtserver.swaggerhub.com/Ploints/api/0.1.0\"\n}\n\nHMACSHA256(\n  base64UrlEncode(header) + \".\" +\n  base64UrlEncode(payload),\n  \"AC508B59-DB7F-4CFC-BAE5-A118E249D759\"\n)\n\n",
+      "example" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IknDsWlnbyIsImV4cCI6IjIwMjAtMDEtMDFUMDA6MDA6MDAuMDAwWiIsInVzZXJpZCI6IjAwMDAwMDAwLTAwMDAtMDAwMC0wMDAwLTAwMDAwMDAwMDAwMCIsInVzZXJ0eXBlIjoidXNlciIsImJhc2VVUkwiOiJodHRwczovL3ZpcnRzZXJ2ZXIuc3dhZ2dlcmh1Yi5jb20vUGxvaW50cy9hcGkvMC4xLjAifQ.JJLzs_kp4qmoOb3HVF6f_Wn_AKjSNwXH8xUqWedpcjI"
     }
   }
 }

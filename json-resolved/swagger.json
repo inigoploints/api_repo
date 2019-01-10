@@ -6,7 +6,8 @@
     "title" : "Ploints App API Design",
     "contact" : { }
   },
-  "host" : "virtserver.swaggerhub.com/Ploints/api/0.1.0",
+  "host" : "virtserver.swaggerhub.com",
+  "basePath" : "/Ploints/api/0.1.0",
   "schemes" : [ "https" ],
   "consumes" : [ "application/json" ],
   "produces" : [ "application/json" ],

@@ -40,7 +40,7 @@
             }
           },
           "401" : {
-            "description" : "Invalid user credentials.",
+            "description" : "Invalid user credentials",
             "schema" : {
               "$ref" : "#/definitions/ErrorResponse"
             }
@@ -61,10 +61,10 @@
         "parameters" : [ {
           "name" : "usertoken",
           "in" : "query",
-          "description" : "JSON Web Token (https://jwt.io/)\n\n{\n  \"alg\": \"HS256\",\n  \"typ\": \"JWT\"\n}\n\n{\n  \"sub\": \"1234567890\",\n  \"name\": \"Iñigo\",\n  \"exp\": \"2020-01-01T00:00:00.000Z\",\n  \"userid\":\"00000000-0000-0000-0000-000000000000\",\n  \"usertype\":\"user\",\n\t\"baseURL\":\"https://virtserver.swaggerhub.com/Ploints/api/0.1.0\"\n}\n\nHMACSHA256(\n  base64UrlEncode(header) + \".\" +\n  base64UrlEncode(payload),\n  \"AC508B59-DB7F-4CFC-BAE5-A118E249D759\"\n)\n\n",
+          "description" : "JSON Web Token (https://jwt.io/)\n\n{\n  \"alg\": \"HS256\",\n  \"typ\": \"JWT\"\n}\n\n{\n  \"sub\": \"inigo@ploints.com\",\n  \"name\": \"Iñigo\",\n  \"exp\": 1577833200,\n  \"userid\":\"00000000-0000-0000-0000-000000000000\",\n  \"usertype\":\"user\",\n\t\"baseURL\":\"https://virtserver.swaggerhub.com/Ploints/api/0.1.0\"\n}\n\nHMACSHA256(\n  base64UrlEncode(header) + \".\" +\n  base64UrlEncode(payload),\n  \"AC508B59-DB7F-4CFC-BAE5-A118E249D759\"\n)\n\n",
           "required" : false,
           "type" : "string",
-          "x-example" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IknDsWlnbyIsImV4cCI6IjIwMjAtMDEtMDFUMDA6MDA6MDAuMDAwWiIsInVzZXJpZCI6IjAwMDAwMDAwLTAwMDAtMDAwMC0wMDAwLTAwMDAwMDAwMDAwMCIsInVzZXJ0eXBlIjoidXNlciIsImJhc2VVUkwiOiJodHRwczovL3ZpcnRzZXJ2ZXIuc3dhZ2dlcmh1Yi5jb20vUGxvaW50cy9hcGkvMC4xLjAifQ.JJLzs_kp4qmoOb3HVF6f_Wn_AKjSNwXH8xUqWedpcjI"
+          "x-example" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJpbmlnb0BwbG9pbnRzLmNvbSIsIm5hbWUiOiJJw7FpZ28iLCJleHAiOjE1Nzc4MzMyMDAsInVzZXJpZCI6IjAwMDAwMDAwLTAwMDAtMDAwMC0wMDAwLTAwMDAwMDAwMDAwMCIsInVzZXJ0eXBlIjoidXNlciIsImJhc2VVUkwiOiJodHRwczovL3ZpcnRzZXJ2ZXIuc3dhZ2dlcmh1Yi5jb20vUGxvaW50cy9hcGkvMC4xLjAifQ.894p0qs_1BRi84UgfDIPEuToEehxXLj_CFvgMwRHM_s"
         }, {
           "name" : "Authorization",
           "in" : "header",
@@ -101,10 +101,10 @@
         "parameters" : [ {
           "name" : "usertoken",
           "in" : "query",
-          "description" : "JSON Web Token (https://jwt.io/)\n\n{\n  \"alg\": \"HS256\",\n  \"typ\": \"JWT\"\n}\n\n{\n  \"sub\": \"1234567890\",\n  \"name\": \"Iñigo\",\n  \"exp\": \"2020-01-01T00:00:00.000Z\",\n  \"userid\":\"00000000-0000-0000-0000-000000000000\",\n  \"usertype\":\"user\",\n\t\"baseURL\":\"https://virtserver.swaggerhub.com/Ploints/api/0.1.0\"\n}\n\nHMACSHA256(\n  base64UrlEncode(header) + \".\" +\n  base64UrlEncode(payload),\n  \"AC508B59-DB7F-4CFC-BAE5-A118E249D759\"\n)\n\n",
+          "description" : "JSON Web Token (https://jwt.io/)\n\n{\n  \"alg\": \"HS256\",\n  \"typ\": \"JWT\"\n}\n\n{\n  \"sub\": \"inigo@ploints.com\",\n  \"name\": \"Iñigo\",\n  \"exp\": 1577833200,\n  \"userid\":\"00000000-0000-0000-0000-000000000000\",\n  \"usertype\":\"user\",\n\t\"baseURL\":\"https://virtserver.swaggerhub.com/Ploints/api/0.1.0\"\n}\n\nHMACSHA256(\n  base64UrlEncode(header) + \".\" +\n  base64UrlEncode(payload),\n  \"AC508B59-DB7F-4CFC-BAE5-A118E249D759\"\n)\n\n",
           "required" : false,
           "type" : "string",
-          "x-example" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IknDsWlnbyIsImV4cCI6IjIwMjAtMDEtMDFUMDA6MDA6MDAuMDAwWiIsInVzZXJpZCI6IjAwMDAwMDAwLTAwMDAtMDAwMC0wMDAwLTAwMDAwMDAwMDAwMCIsInVzZXJ0eXBlIjoidXNlciIsImJhc2VVUkwiOiJodHRwczovL3ZpcnRzZXJ2ZXIuc3dhZ2dlcmh1Yi5jb20vUGxvaW50cy9hcGkvMC4xLjAifQ.JJLzs_kp4qmoOb3HVF6f_Wn_AKjSNwXH8xUqWedpcjI"
+          "x-example" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJpbmlnb0BwbG9pbnRzLmNvbSIsIm5hbWUiOiJJw7FpZ28iLCJleHAiOjE1Nzc4MzMyMDAsInVzZXJpZCI6IjAwMDAwMDAwLTAwMDAtMDAwMC0wMDAwLTAwMDAwMDAwMDAwMCIsInVzZXJ0eXBlIjoidXNlciIsImJhc2VVUkwiOiJodHRwczovL3ZpcnRzZXJ2ZXIuc3dhZ2dlcmh1Yi5jb20vUGxvaW50cy9hcGkvMC4xLjAifQ.894p0qs_1BRi84UgfDIPEuToEehxXLj_CFvgMwRHM_s"
         }, {
           "name" : "Authorization",
           "in" : "header",
@@ -157,7 +157,7 @@
             }
           },
           "403" : {
-            "description" : "Token and userid don't match",
+            "description" : "Token and userid don’t match or not allowed for this user",
             "schema" : {
               "$ref" : "#/definitions/ErrorResponse"
             }
@@ -191,7 +191,7 @@
             }
           },
           "403" : {
-            "description" : "Token and userid don't match",
+            "description" : "Token and userid don’t match or not allowed for this user",
             "schema" : {
               "$ref" : "#/definitions/ErrorResponse"
             }
@@ -221,14 +221,8 @@
               "type" : "string"
             }
           },
-          "401" : {
-            "description" : "Invalid token",
-            "schema" : {
-              "$ref" : "#/definitions/ErrorResponse"
-            }
-          },
           "403" : {
-            "description" : "Status 403"
+            "description" : "Invalid client application credentials (Authorization header)"
           }
         },
         "security" : [ {
@@ -236,11 +230,121 @@
         } ]
       }
     },
-    "/user/points/{userid}" : { },
-    "/catalog/vendors/items" : { },
-    "/catalog/vendors" : { },
-    "/programs" : { },
-    "/users/passwords/{userid}" : { }
+    "/users/passwords/{userid}" : {
+      "put" : {
+        "summary" : "Updates the user password",
+        "description" : "The User body may have only the newpassword node",
+        "consumes" : [ ],
+        "parameters" : [ {
+          "name" : "userid",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/User"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200"
+          },
+          "401" : {
+            "description" : "Invalid token",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          },
+          "403" : {
+            "description" : "Token and userid don’t match or not allowed for this user",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/user/points/{userid}" : {
+      "get" : {
+        "summary" : "Gets user points and points partners detail",
+        "parameters" : [ {
+          "name" : "userid",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200",
+            "schema" : {
+              "$ref" : "#/definitions/UserPoints"
+            }
+          },
+          "401" : {
+            "description" : "Invalid token"
+          },
+          "403" : {
+            "description" : "Token and userid don’t match or not allowed for this user"
+          }
+        }
+      }
+    },
+    "/cardpartners" : {
+      "get" : {
+        "summary" : "Gets list of card partners info",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200",
+            "examples" : {
+              "application/json" : "[\n\t{\n\t\t\"cardpartnerid\":\"7EE69445-5835-497F-B1FD-71982643F264\",\n\t\t\"cardpartnername\":\"Amazon\",\n\t\t\"cardpartnericon\":\"https://null.com/amazon.png\",\n\t\t\"cardpartnercard\":\"https://null.com/amazon_card.png\"\n\t},\n\t{\n\t\t\"cardpartnerid\":\"0AA3F367-617A-4417-9288-440DBAD41A71\",\n\t\t\"cardpartnername\":\"Apple Store\",\n\t\t\"cardpartnericon\":\"https://null.com/amazon.png\",\n\t\t\"cardpartnercard\":\"https://null.com/amazon_card.png\"\n\t},\n\t{\n\t\t\"cardpartnerid\":\"8697C44B-E21E-48B7-A490-B8DEB6CA8C3E\",\n\t\t\"cardpartnername\":\"Ikea\",\n\t\t\"cardpartnericon\":\"https://null.com/amazon.png\",\n\t\t\"cardpartnercard\":\"https://null.com/amazon_card.png\"\n\t},\n]\n"
+            },
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/CardPartner"
+              }
+            }
+          },
+          "401" : {
+            "description" : "Invalid token"
+          },
+          "403" : {
+            "description" : "Token and userid don’t match or not allowed for this user"
+          }
+        }
+      }
+    },
+    "/pointpartners/{userid}" : {
+      "get" : {
+        "summary" : "Gets the list of point partners available for the user",
+        "parameters" : [ {
+          "name" : "userid",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200"
+          }
+        }
+      }
+    },
+    "/pointspartners" : {
+      "get" : {
+        "summary" : "Gets the list of point partners available",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200"
+          }
+        }
+      }
+    }
   },
   "securityDefinitions" : {
     "API key" : {
@@ -299,9 +403,72 @@
     },
     "UserToken" : {
       "type" : "string",
-      "description" : "JSON Web Token (https://jwt.io/)\n\n{\n  \"alg\": \"HS256\",\n  \"typ\": \"JWT\"\n}\n\n{\n  \"sub\": \"1234567890\",\n  \"name\": \"Iñigo\",\n  \"exp\": \"2020-01-01T00:00:00.000Z\",\n  \"userid\":\"00000000-0000-0000-0000-000000000000\",\n  \"usertype\":\"user\",\n\t\"baseURL\":\"https://virtserver.swaggerhub.com/Ploints/api/0.1.0\"\n}\n\nHMACSHA256(\n  base64UrlEncode(header) + \".\" +\n  base64UrlEncode(payload),\n  \"AC508B59-DB7F-4CFC-BAE5-A118E249D759\"\n)\n\n",
-      "example" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IknDsWlnbyIsImV4cCI6IjIwMjAtMDEtMDFUMDA6MDA6MDAuMDAwWiIsInVzZXJpZCI6IjAwMDAwMDAwLTAwMDAtMDAwMC0wMDAwLTAwMDAwMDAwMDAwMCIsInVzZXJ0eXBlIjoidXNlciIsImJhc2VVUkwiOiJodHRwczovL3ZpcnRzZXJ2ZXIuc3dhZ2dlcmh1Yi5jb20vUGxvaW50cy9hcGkvMC4xLjAifQ.JJLzs_kp4qmoOb3HVF6f_Wn_AKjSNwXH8xUqWedpcjI"
+      "description" : "JSON Web Token (https://jwt.io/)\n\n{\n  \"alg\": \"HS256\",\n  \"typ\": \"JWT\"\n}\n\n{\n  \"sub\": \"inigo@ploints.com\",\n  \"name\": \"Iñigo\",\n  \"exp\": 1577833200,\n  \"userid\":\"00000000-0000-0000-0000-000000000000\",\n  \"usertype\":\"user\",\n\t\"baseURL\":\"https://virtserver.swaggerhub.com/Ploints/api/0.1.0\"\n}\n\nHMACSHA256(\n  base64UrlEncode(header) + \".\" +\n  base64UrlEncode(payload),\n  \"AC508B59-DB7F-4CFC-BAE5-A118E249D759\"\n)\n\n",
+      "example" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJpbmlnb0BwbG9pbnRzLmNvbSIsIm5hbWUiOiJJw7FpZ28iLCJleHAiOjE1Nzc4MzMyMDAsInVzZXJpZCI6IjAwMDAwMDAwLTAwMDAtMDAwMC0wMDAwLTAwMDAwMDAwMDAwMCIsInVzZXJ0eXBlIjoidXNlciIsImJhc2VVUkwiOiJodHRwczovL3ZpcnRzZXJ2ZXIuc3dhZ2dlcmh1Yi5jb20vUGxvaW50cy9hcGkvMC4xLjAifQ.894p0qs_1BRi84UgfDIPEuToEehxXLj_CFvgMwRHM_s"
+    },
+    "UserPoints" : {
+      "type" : "object",
+      "properties" : {
+        "pointsname" : {
+          "type" : "string"
+        },
+        "pointsavailable" : {
+          "type" : "number"
+        },
+        "pointsavailablelocalcurrency" : {
+          "type" : "number"
+        },
+        "pointsinprograms" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/UserPoints_pointsinprograms"
+          }
+        }
+      },
+      "description" : "User points and points partners detail",
+      "example" : "{\r\n\t\"pointsname\":\"ploints\",\r\n\t\"pointsavailable\":78000,\r\n\t\"pointsavailablelocalcurrency\":43.65,\r\n\t\"pointsinprograms\":[\r\n\t\t{\"program\":\"Cabify\",\"points\":14000},\r\n\t\t{\"program\":\"Air Europa\",\"points\":12000},\r\n\t\t{\"program\":\"Yoigo\",\"points\":8000}\r\n\t\t]\r\n}"
+    },
+    "CardPartner" : {
+      "type" : "object",
+      "required" : [ "cardpartnercard", "cardpartnericon", "cardpartnerid", "cardpartnername" ],
+      "properties" : {
+        "cardpartnerid" : {
+          "type" : "string"
+        },
+        "cardpartnername" : {
+          "type" : "string"
+        },
+        "cardpartnericon" : {
+          "type" : "string"
+        },
+        "cardpartnercard" : {
+          "type" : "string"
+        },
+        "minvalue" : {
+          "type" : "number"
+        },
+        "maxvalue" : {
+          "type" : "number"
+        },
+        "allowedvalues" : {
+          "type" : "array",
+          "items" : {
+            "type" : "number"
+          }
+        }
+      },
+      "example" : "{\r\n\t\"cardpartnerid\":\"7EE69445-5835-497F-B1FD-71982643F264\",\r\n\t\"cardpartnername\":\"Amazon\",\r\n\t\"cardpartnericon\":\"https://null.com/amazon.png\",\r\n\t\"cardpartnercard\":\"https://null.com/amazon_card.png\",\r\n\t\"minvalue\":0,\r\n\t\"maxvalue\":9999999,\r\n\t\"allowedvalues\":[50,100,250,500,1000]\r\n}"
+    },
+    "UserPoints_pointsinprograms" : {
+      "properties" : {
+        "program" : {
+          "type" : "string"
+        },
+        "points" : {
+          "type" : "number"
+        }
+      }
     }
   },
-  "x-aws-api-id" : "gvx0n7x7uk"
+  "x-aws-api-id" : "iwx0yd5fd8"
 }

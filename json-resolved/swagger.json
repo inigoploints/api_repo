@@ -3,7 +3,7 @@
   "info" : {
     "description" : "No description",
     "version" : "0.1.0",
-    "title" : "Ploints App API Design",
+    "title" : "Ploints App API",
     "contact" : { }
   },
   "host" : "virtserver.swaggerhub.com",
@@ -12,6 +12,8 @@
   "consumes" : [ "application/json" ],
   "produces" : [ "application/json" ],
   "security" : [ {
+    "API key" : [ ]
+  }, {
     "JWT" : [ ]
   } ],
   "paths" : {
@@ -19,18 +21,17 @@
       "post" : {
         "summary" : "Authentication manager",
         "description" : "Gets new token",
+        "consumes" : [ ],
         "parameters" : [ {
-          "name" : "username",
-          "in" : "query",
-          "required" : false,
-          "type" : "string",
-          "x-example" : "inigo"
-        }, {
-          "name" : "password",
-          "in" : "query",
-          "required" : false,
-          "type" : "string",
-          "x-example" : "contraseñafuerte"
+          "in" : "body",
+          "name" : "body",
+          "required" : true,
+          "schema" : {
+            "type" : "object"
+          },
+          "x-examples" : {
+            "application/json" : "{\"username\":\"inigo\",\"password\":\"contraseña\";\"deviceid\":\"239rf2hf4029h8f249\"}"
+          }
         } ],
         "responses" : {
           "200" : {
@@ -58,19 +59,20 @@
       },
       "put" : {
         "summary" : "Refresh token",
+        "consumes" : [ ],
         "parameters" : [ {
-          "name" : "usertoken",
-          "in" : "query",
-          "description" : "JSON Web Token (https://jwt.io/)\n\n{\n  \"alg\": \"HS256\",\n  \"typ\": \"JWT\"\n}\n\n{\n  \"sub\": \"inigo@ploints.com\",\n  \"name\": \"Iñigo\",\n  \"exp\": 1577833200,\n  \"userid\":\"00000000-0000-0000-0000-000000000000\",\n  \"usertype\":\"user\",\n\t\"baseURL\":\"https://virtserver.swaggerhub.com/Ploints/api/0.1.0\"\n}\n\nHMACSHA256(\n  base64UrlEncode(header) + \".\" +\n  base64UrlEncode(payload),\n  \"AC508B59-DB7F-4CFC-BAE5-A118E249D759\"\n)\n\n",
-          "required" : false,
-          "type" : "string",
-          "x-example" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJpbmlnb0BwbG9pbnRzLmNvbSIsIm5hbWUiOiJJw7FpZ28iLCJleHAiOjE1Nzc4MzMyMDAsInVzZXJpZCI6IjAwMDAwMDAwLTAwMDAtMDAwMC0wMDAwLTAwMDAwMDAwMDAwMCIsInVzZXJ0eXBlIjoidXNlciIsImJhc2VVUkwiOiJodHRwczovL3ZpcnRzZXJ2ZXIuc3dhZ2dlcmh1Yi5jb20vUGxvaW50cy9hcGkvMC4xLjAifQ.894p0qs_1BRi84UgfDIPEuToEehxXLj_CFvgMwRHM_s"
-        }, {
           "name" : "Authorization",
           "in" : "header",
           "required" : false,
           "type" : "string",
           "x-example" : "BASIC AC508B59-DB7F-4CFC-BAE5-A118E249D759"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/UserToken"
+          }
         } ],
         "responses" : {
           "200" : {
@@ -91,10 +93,7 @@
               "$ref" : "#/definitions/ErrorResponse"
             }
           }
-        },
-        "security" : [ {
-          "API key" : [ ]
-        } ]
+        }
       },
       "delete" : {
         "summary" : "Expire token",
@@ -128,10 +127,7 @@
               "$ref" : "#/definitions/ErrorResponse"
             }
           }
-        },
-        "security" : [ {
-          "API key" : [ ]
-        } ]
+        }
       }
     },
     "/users/profiles/{userid}" : {
@@ -214,11 +210,8 @@
         "responses" : {
           "201" : {
             "description" : "Status 201",
-            "examples" : {
-              "application/json" : "00000000-0000-0000-0000-000000000000"
-            },
             "schema" : {
-              "type" : "string"
+              "$ref" : "#/definitions/User"
             }
           },
           "403" : {
@@ -313,30 +306,39 @@
             "description" : "Invalid token"
           },
           "403" : {
-            "description" : "Token and userid don’t match or not allowed for this user"
+            "description" : "Not allowed for this user"
           }
         }
       }
     },
-    "/pointpartners/{userid}" : {
+    "/cardpartners/{cardpartnerid}" : {
       "get" : {
-        "summary" : "Gets the list of point partners available for the user",
+        "summary" : "Gets extended info on card partner",
         "parameters" : [ {
-          "name" : "userid",
+          "name" : "cardpartnerid",
           "in" : "path",
           "required" : true,
           "type" : "string"
         } ],
         "responses" : {
           "200" : {
-            "description" : "Status 200"
+            "description" : "Status 200",
+            "schema" : {
+              "$ref" : "#/definitions/CardPartner"
+            }
+          },
+          "401" : {
+            "description" : "Invalid token"
+          },
+          "403" : {
+            "description" : "Not allowed for this user"
           }
         }
       }
     },
-    "/pointspartners" : {
+    "/pointpartners" : {
       "get" : {
-        "summary" : "Gets the list of point partners available",
+        "summary" : "Gets the list of point partners available for the user",
         "parameters" : [ ],
         "responses" : {
           "200" : {
@@ -349,7 +351,7 @@
   "securityDefinitions" : {
     "API key" : {
       "type" : "apiKey",
-      "name" : "Authorization",
+      "name" : "ApiKey",
       "in" : "header"
     },
     "JWT" : {
@@ -457,7 +459,7 @@
           }
         }
       },
-      "example" : "{\r\n\t\"cardpartnerid\":\"7EE69445-5835-497F-B1FD-71982643F264\",\r\n\t\"cardpartnername\":\"Amazon\",\r\n\t\"cardpartnericon\":\"https://null.com/amazon.png\",\r\n\t\"cardpartnercard\":\"https://null.com/amazon_card.png\",\r\n\t\"minvalue\":0,\r\n\t\"maxvalue\":9999999,\r\n\t\"allowedvalues\":[50,100,250,500,1000]\r\n}"
+      "example" : "{\n\t\"cardpartnerid\":\"7EE69445-5835-497F-B1FD-71982643F264\",\n\t\"cardpartnername\":\"Amazon\",\n\t\"cardpartnericon\":\"https://s3.amazonaws.com/com.ploints.firstbucket/content/images/amazon-logo.png\",\n\t\"cardpartnercard\":\"https://s3.amazonaws.com/com.ploints.firstbucket/content/images/amazon-gift-card.png\",\n\t\"minvalue\":0,\n\t\"maxvalue\":9999999,\n\t\"allowedvalues\":[50,100,250,500,1000]\n}"
     },
     "UserPoints_pointsinprograms" : {
       "properties" : {

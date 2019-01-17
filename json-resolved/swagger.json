@@ -189,7 +189,7 @@
         }
       },
       "patch" : {
-        "summary" : "Partial update of user profile (password)",
+        "summary" : "Partial update of user profile (password or others)",
         "consumes" : [ ],
         "parameters" : [ {
           "name" : "userid",
@@ -246,7 +246,10 @@
             }
           },
           "403" : {
-            "description" : "Invalid client application credentials (Authorization header)"
+            "description" : "Invalid client application credentials (Authorization header)",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
           }
         },
         "security" : [ {
@@ -254,22 +257,57 @@
         } ]
       }
     },
-    "/users/passwords/{userid}" : {
-      "put" : {
-        "summary" : "Updates the user password",
-        "description" : "The User body may have only the newpassword node",
+    "/users/profiles/verifycode" : {
+      "post" : {
+        "summary" : "Sends code to verify user's email",
         "consumes" : [ ],
         "parameters" : [ {
-          "name" : "userid",
-          "in" : "path",
-          "required" : true,
-          "type" : "string"
-        }, {
           "in" : "body",
           "name" : "body",
           "required" : true,
           "schema" : {
-            "$ref" : "#/definitions/User"
+            "type" : "object"
+          },
+          "x-examples" : {
+            "application/json" : "{\"email\":\"inigo@ploints.com\",\"verifycode\":\"HDOK25HH\"}"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200"
+          },
+          "401" : {
+            "description" : "Status 401",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          },
+          "403" : {
+            "description" : "Invalid client application credentials (Authorization header)",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "security" : [ {
+          "API key" : [ ]
+        } ]
+      }
+    },
+    "/users/resetpassword" : {
+      "post" : {
+        "summary" : "Reset password system (email)",
+        "description" : "The User body may have only the newpassword node",
+        "consumes" : [ ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "x-examples" : {
+            "application/json" : "{\"email\":\"inigo@ploints.com\"}"
           }
         } ],
         "responses" : {
@@ -377,6 +415,26 @@
           }
         }
       }
+    },
+    "/foodorder" : {
+      "get" : {
+        "summary" : "Gets food order info",
+        "parameters" : [ {
+          "name" : "foodorderid",
+          "in" : "query",
+          "required" : false,
+          "type" : "string",
+          "x-example" : "1458131"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200",
+            "schema" : {
+              "$ref" : "#/definitions/User"
+            }
+          }
+        }
+      }
     }
   },
   "securityDefinitions" : {
@@ -422,6 +480,9 @@
         "email" : {
           "type" : "string"
         },
+        "postalcode" : {
+          "type" : "number"
+        },
         "genderid" : {
           "type" : "number"
         },
@@ -429,10 +490,17 @@
           "type" : "string"
         },
         "newpassword" : {
-          "type" : "string"
+          "type" : "object",
+          "properties" : { }
+        },
+        "acceptcommercial" : {
+          "type" : "boolean"
+        },
+        "acceptterms" : {
+          "type" : "boolean"
         }
       },
-      "example" : "{\n\"userid\":\"00000000-0000-0000-0000-000000000000\"\n,\"name\":\"Iñigo\"\n,\"lastname\":\"Mingo Toral\"\n,\"mobile\":\"666999666\"\n,\"email\":\"inigo@ploints.com\"\n,\"genderid\":1\n,\"birthdate\":\"1977-01-20T00:00:00.000Z\"\n,\"newpassword\":null\n}"
+      "example" : "{\r\n\"userid\":\"00000000-0000-0000-0000-000000000000\"\r\n,\"name\":\"Iñigo\"\r\n,\"lastname\":\"Mingo Toral\"\r\n,\"mobile\":\"666999666\"\r\n,\"email\":\"inigo@ploints.com\"\r\n,\"postalcode\":28035\r\n,\"genderid\":1\r\n,\"birthdate\":\"1977-01-20T00:00:00.000Z\"\r\n,\"newpassword\":null\r\n,\"acceptcommercial\":true\r\n,\"acceptterms\":true\r\n}"
     },
     "UserToken" : {
       "type" : "string",

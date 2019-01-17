@@ -30,7 +30,7 @@
             "type" : "object"
           },
           "x-examples" : {
-            "application/json" : "{\"username\":\"inigo\",\"password\":\"contraseña\";\"deviceid\":\"239rf2hf4029h8f249\"}"
+            "application/json" : "{\"username\":\"inigo\",\"password\":\"contraseña\",\"deviceid\":\"239rf2hf4029h8f249\"}"
           }
         } ],
         "responses" : {
@@ -61,12 +61,6 @@
         "summary" : "Refresh token",
         "consumes" : [ ],
         "parameters" : [ {
-          "name" : "Authorization",
-          "in" : "header",
-          "required" : false,
-          "type" : "string",
-          "x-example" : "BASIC AC508B59-DB7F-4CFC-BAE5-A118E249D759"
-        }, {
           "in" : "body",
           "name" : "body",
           "required" : true,
@@ -174,6 +168,43 @@
           "required" : true,
           "schema" : {
             "$ref" : "#/definitions/User"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200"
+          },
+          "401" : {
+            "description" : "Invalid token",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          },
+          "403" : {
+            "description" : "Token and userid don’t match or not allowed for this user",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "patch" : {
+        "summary" : "Partial update of user profile (password)",
+        "consumes" : [ ],
+        "parameters" : [ {
+          "name" : "userid",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : true,
+          "schema" : {
+            "type" : "object"
+          },
+          "x-examples" : {
+            "application/json" : "{\n\"newpassword\":\"nuevacontraseña\"\n}"
           }
         } ],
         "responses" : {
@@ -391,8 +422,8 @@
         "email" : {
           "type" : "string"
         },
-        "gender" : {
-          "type" : "string"
+        "genderid" : {
+          "type" : "number"
         },
         "birthdate" : {
           "type" : "string"
@@ -401,7 +432,7 @@
           "type" : "string"
         }
       },
-      "example" : "{\n\"userid\":\"00000000-0000-0000-0000-000000000000\"\n,\"name\":\"Iñigo\"\n,\"lastname\":\"Mingo Toral\"\n,\"mobile\":\"666999666\"\n,\"email\":\"inigo@ploints.com\"\n,\"gender\":\"Masculino\"\n,\"birthdate\":\"1977-01-20T00:00:00.000Z\"\n,\"newpassword\":\"xyz\"\n}"
+      "example" : "{\n\"userid\":\"00000000-0000-0000-0000-000000000000\"\n,\"name\":\"Iñigo\"\n,\"lastname\":\"Mingo Toral\"\n,\"mobile\":\"666999666\"\n,\"email\":\"inigo@ploints.com\"\n,\"genderid\":1\n,\"birthdate\":\"1977-01-20T00:00:00.000Z\"\n,\"newpassword\":null\n}"
     },
     "UserToken" : {
       "type" : "string",

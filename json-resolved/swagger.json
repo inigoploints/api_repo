@@ -30,7 +30,7 @@
             "type" : "object"
           },
           "x-examples" : {
-            "application/json" : "{\"username\":\"inigo\",\"password\":\"contraseña\",\"deviceid\":\"239rf2hf4029h8f249\"}"
+            "application/json" : "{\"username\":\"inigo@ploints.com\",\"password\":\"contraseña\",\"deviceid\":\"239rf2hf4029h8f249\"}"
           }
         } ],
         "responses" : {
@@ -98,12 +98,6 @@
           "required" : false,
           "type" : "string",
           "x-example" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJpbmlnb0BwbG9pbnRzLmNvbSIsIm5hbWUiOiJJw7FpZ28iLCJleHAiOjE1Nzc4MzMyMDAsInVzZXJpZCI6IjAwMDAwMDAwLTAwMDAtMDAwMC0wMDAwLTAwMDAwMDAwMDAwMCIsInVzZXJ0eXBlIjoidXNlciIsImJhc2VVUkwiOiJodHRwczovL3ZpcnRzZXJ2ZXIuc3dhZ2dlcmh1Yi5jb20vUGxvaW50cy9hcGkvMC4xLjAifQ.894p0qs_1BRi84UgfDIPEuToEehxXLj_CFvgMwRHM_s"
-        }, {
-          "name" : "Authorization",
-          "in" : "header",
-          "required" : false,
-          "type" : "string",
-          "x-example" : "BASIC AC508B59-DB7F-4CFC-BAE5-A118E249D759"
         } ],
         "responses" : {
           "200" : {
@@ -277,7 +271,7 @@
             "description" : "Status 200"
           },
           "401" : {
-            "description" : "Status 401",
+            "description" : "Invalid control code",
             "schema" : {
               "$ref" : "#/definitions/ErrorResponse"
             }
@@ -304,7 +298,7 @@
           "name" : "body",
           "required" : true,
           "schema" : {
-            "type" : "string"
+            "type" : "object"
           },
           "x-examples" : {
             "application/json" : "{\"email\":\"inigo@ploints.com\"}"
@@ -346,10 +340,16 @@
             }
           },
           "401" : {
-            "description" : "Invalid token"
+            "description" : "Invalid token",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
           },
           "403" : {
-            "description" : "Token and userid don’t match or not allowed for this user"
+            "description" : "Token and userid don’t match or not allowed for this user",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
           }
         }
       }
@@ -372,10 +372,62 @@
             }
           },
           "401" : {
-            "description" : "Invalid token"
+            "description" : "Invalid token",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
           },
           "403" : {
-            "description" : "Not allowed for this user"
+            "description" : "Not allowed for this user",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/poinstpartners" : {
+      "get" : {
+        "summary" : "Gets the list of point partners available for the user",
+        "parameters" : [ {
+          "name" : "connected",
+          "in" : "query",
+          "description" : "optional filter (yes/no)",
+          "required" : false,
+          "type" : "string",
+          "x-example" : "yes"
+        }, {
+          "name" : "type",
+          "in" : "query",
+          "description" : "optional filter (pull (connected from app) / push (push from external site))",
+          "required" : false,
+          "type" : "string",
+          "x-example" : "pull"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200",
+            "examples" : {
+              "application/json" : "[\n\t{\n\t\t\"pointpartnerid\":\"0645a49c-32c2-4716-831d-d02a22359268\",\n\t\t\"pointpartnername\":\"Iberia Plus\",\n\t\t\"pointpartnericon\":\"https://s3.amazonaws.com/com.ploints.firstbucket/content/images/iberia-plus-logo.png\",\n\t\t\"connected\":\"no\",\n\t\t\"type\":\"pull\"\n\t},\n\t{\n\t\t\"pointpartnerid\":\"afe2d434-9351-465c-85ed-92cb6f9911ee\",\n\t\t\"pointpartnername\":\"Cabify\",\n\t\t\"pointpartnericon\":\"https://s3.amazonaws.com/com.ploints.firstbucket/content/images/cabify-logo.png\",\n\t\t\"connected\":\"yes\",\n\t\t\"type\":\"pull\",\n\t\t\"pointsinpartners\":14000\n\t},\n\t{\n\t\t\"pointpartnerid\":\"51fb160b-81a9-41b2-8d63-860f1c6d1446\",\n\t\t\"pointpartnername\":\"NH Rewards\",\n\t\t\"pointpartnericon\":\"https://s3.amazonaws.com/com.ploints.firstbucket/content/images/nh-logo.png\",\n\t\t\"connected\":\"no\",\n\t\t\"type\":\"push\",\n\t\t\"pointpartnerurl\":\"https://www.nh-hoteles.es/nhrewards\"\n\t}\n]"
+            },
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/PointsPartner"
+              }
+            }
+          },
+          "401" : {
+            "description" : "Invalid token",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          },
+          "403" : {
+            "description" : "Not allowed for this user",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
           }
         }
       }
@@ -404,37 +456,6 @@
           }
         }
       }
-    },
-    "/pointpartners" : {
-      "get" : {
-        "summary" : "Gets the list of point partners available for the user",
-        "parameters" : [ ],
-        "responses" : {
-          "200" : {
-            "description" : "Status 200"
-          }
-        }
-      }
-    },
-    "/foodorder" : {
-      "get" : {
-        "summary" : "Gets food order info",
-        "parameters" : [ {
-          "name" : "foodorderid",
-          "in" : "query",
-          "required" : false,
-          "type" : "string",
-          "x-example" : "1458131"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Status 200",
-            "schema" : {
-              "$ref" : "#/definitions/User"
-            }
-          }
-        }
-      }
     }
   },
   "securityDefinitions" : {
@@ -458,9 +479,12 @@
         },
         "errormessage" : {
           "type" : "string"
+        },
+        "errormessagedetail" : {
+          "type" : "string"
         }
       },
-      "example" : "{\n    \"errorcode\":1\n    ,\"errormessage\":\"Invalid user token\"\n}"
+      "example" : "{\r\n    \"errorcode\":1\r\n    ,\"errormessage\":\"Invalid user token\"\r\n    ,\"errormessagedetail\":\"Helpful info for developer\"\r\n}"
     },
     "User" : {
       "type" : "object",
@@ -498,9 +522,12 @@
         },
         "acceptterms" : {
           "type" : "boolean"
+        },
+        "sociallogin" : {
+          "$ref" : "#/definitions/User_sociallogin"
         }
       },
-      "example" : "{\r\n\"userid\":\"00000000-0000-0000-0000-000000000000\"\r\n,\"name\":\"Iñigo\"\r\n,\"lastname\":\"Mingo Toral\"\r\n,\"mobile\":\"666999666\"\r\n,\"email\":\"inigo@ploints.com\"\r\n,\"postalcode\":28035\r\n,\"genderid\":1\r\n,\"birthdate\":\"1977-01-20T00:00:00.000Z\"\r\n,\"newpassword\":null\r\n,\"acceptcommercial\":true\r\n,\"acceptterms\":true\r\n}"
+      "example" : "{\r\n\"userid\":\"00000000-0000-0000-0000-000000000000\"\r\n,\"name\":\"Iñigo\"\r\n,\"lastname\":\"Mingo Toral\"\r\n,\"mobile\":\"666999666\"\r\n,\"email\":\"inigo@ploints.com\"\r\n,\"postalcode\":28035\r\n,\"genderid\":1\r\n,\"birthdate\":\"1977-01-20T00:00:00.000Z\"\r\n,\"newpassword\":null\r\n,\"acceptcommercial\":true\r\n,\"acceptterms\":true\r\n  ,\"sociallogin\":{\"social\":\"facebook\"\r\n                 ,\"secret\":\"RGWERGWTGHWTH\"\r\n                 ,\"apikey\":\"wfwergwerghethe\"}\r\n}"
     },
     "UserToken" : {
       "type" : "string",
@@ -519,15 +546,15 @@
         "pointsavailablelocalcurrency" : {
           "type" : "number"
         },
-        "pointsinprograms" : {
+        "pointsinpartners" : {
           "type" : "array",
           "items" : {
-            "$ref" : "#/definitions/UserPoints_pointsinprograms"
+            "$ref" : "#/definitions/UserPoints_pointsinpartners"
           }
         }
       },
       "description" : "User points and points partners detail",
-      "example" : "{\r\n\t\"pointsname\":\"ploints\",\r\n\t\"pointsavailable\":78000,\r\n\t\"pointsavailablelocalcurrency\":43.65,\r\n\t\"pointsinprograms\":[\r\n\t\t{\"program\":\"Cabify\",\"points\":14000},\r\n\t\t{\"program\":\"Air Europa\",\"points\":12000},\r\n\t\t{\"program\":\"Yoigo\",\"points\":8000}\r\n\t\t]\r\n}"
+      "example" : "{\r\n\t\"pointsname\":\"ploints\",\r\n\t\"pointsavailable\":78000,\r\n\t\"pointsavailablelocalcurrency\":43.65,\r\n\t\"pointsinpartners\":[\r\n\t\t{\"pointpartnerid\":\"b9ecbeb8-ecca-461d-9ae5-d960a71b4ad0\",\"pointpartnername\":\"Cabify\",\"points\":14000},\r\n\t\t{\"pointpartnerid\":\"b38738ee-8483-44eb-a5e5-8688b9b15dfd\",\"pointpartnername\":\"Air Europa\",\"points\":12000},\r\n\t\t{\"pointpartnerid\":\"17b1985c-631b-4af1-9d84-e5b6427175cc\",\"pointpartnername\":\"Yoigo\",\"points\":8000}\r\n\t\t]\r\n}"
     },
     "CardPartner" : {
       "type" : "object",
@@ -560,9 +587,52 @@
       },
       "example" : "{\n\t\"cardpartnerid\":\"7EE69445-5835-497F-B1FD-71982643F264\",\n\t\"cardpartnername\":\"Amazon\",\n\t\"cardpartnericon\":\"https://s3.amazonaws.com/com.ploints.firstbucket/content/images/amazon-logo.png\",\n\t\"cardpartnercard\":\"https://s3.amazonaws.com/com.ploints.firstbucket/content/images/amazon-gift-card.png\",\n\t\"minvalue\":0,\n\t\"maxvalue\":9999999,\n\t\"allowedvalues\":[50,100,250,500,1000]\n}"
     },
-    "UserPoints_pointsinprograms" : {
+    "PointsPartner" : {
+      "type" : "object",
       "properties" : {
-        "program" : {
+        "pointspartnerid" : {
+          "type" : "string"
+        },
+        "pointspartnername" : {
+          "type" : "string"
+        },
+        "pointspartnericon" : {
+          "type" : "string"
+        },
+        "connected" : {
+          "type" : "string"
+        },
+        "type" : {
+          "type" : "string"
+        },
+        "pointsinpartners" : {
+          "type" : "number"
+        },
+        "pointpartnerurl" : {
+          "type" : "string"
+        }
+      },
+      "example" : "\r\n\t{\r\n\t\t\"pointspartnerid\":\"afe2d434-9351-465c-85ed-92cb6f9911ee\",\r\n\t\t\"pointspartnername\":\"Cabify\",\r\n\t\t\"pointspartnericon\":\"https://s3.amazonaws.com/com.ploints.firstbucket/content/images/cabify-logo.png\",\r\n\t\t\"connected\":\"yes\",\r\n\t\t\"type\":\"pull\",\r\n\t\t\"pointsinpartners\":14000,\r\n\t\t\"pointpartnerurl\":\"https://www.nh-hoteles.es/nhrewards\"\r\n\t}"
+    },
+    "User_sociallogin" : {
+      "properties" : {
+        "social" : {
+          "type" : "string"
+        },
+        "secret" : {
+          "type" : "string"
+        },
+        "apikey" : {
+          "type" : "string"
+        }
+      }
+    },
+    "UserPoints_pointsinpartners" : {
+      "properties" : {
+        "pointpartnerid" : {
+          "type" : "string"
+        },
+        "pointpartnername" : {
           "type" : "string"
         },
         "points" : {

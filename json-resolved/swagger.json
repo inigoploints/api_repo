@@ -251,7 +251,7 @@
         } ]
       }
     },
-    "/users/profiles/verifycode" : {
+    "/users/profiles/verifyemail" : {
       "post" : {
         "summary" : "Sends code to verify user's email",
         "consumes" : [ ],
